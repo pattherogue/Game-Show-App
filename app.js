@@ -8,9 +8,11 @@ buttonReset.addEventListener('click', () => {
 });
 
 const phrases = [
-    "today is a great day",
-    "you are amazing",
-    "great things are coming your way",
-    "you are something special",
-    "coding is life"
+    "Today is a great day",
+    "Tou are amazing",
+    "Great things are coming your way",
+    "You are something special",
+    "Coding is life"
 ]
+
+ 
