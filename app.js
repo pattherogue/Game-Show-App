@@ -40,10 +40,10 @@ const addPhraseToDisplay = arr => {
         //append list item to the #phrase ul
         const ul = document.querySelector("#phrase ul");
         //letter or space
-        if (arr[i] !== " ") {
-            listItem.className = "letter";
-        } else {
+        if (arr[i] === " ") {
             listItem.className = "space";
+        } else {
+            listItem.className = "letter";
         }
         ul.appendChild(listItem)
     }
