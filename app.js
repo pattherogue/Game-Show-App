@@ -1,9 +1,17 @@
-const qwerty = document.getElementById('qwerty');
-const phrase = document.getElementById('phrase');
-const startBtn = doucment.getElementByClassName('btn_reset');
+//Step 2 - Get Elements From HTML
+const qwerty = document.getElementById("qwerty");
+const phrase = document.getElementById("phrase");
+const startBtn = document.querySelector(".btn__reset");
+const overlay = document.getElementById("overlay");
 
 let missed = 0;
 
+//Step 3 - Hide Start Screen Overlay
+startBtn.addEventListener("click", () => {
+    overlay.style.display = "none";
+});
+
+//Step 4 - Create Phrases
 const phrases = [
     "Today is a great day",
     "Tou are amazing",
@@ -12,13 +20,8 @@ const phrases = [
     "Coding is life"
 ]
 
-//Hide start screen overlay
-startBtn.addEventListener('click', () => {
-    overlay.style.display = "none";
-});
-
 //Step 5 - Random Phrase
-function getRandomPhraseAsArray(arr) {
+const getRandomPhraseAsArray = arr => {
     //randomly choose phrase
     let random = Math.floor(Math.random() * arr.length);
     //split phrase into new array of characters
@@ -28,19 +31,19 @@ function getRandomPhraseAsArray(arr) {
 }
 
 //Step 6 - Game Display
-function addPhraseToDisplay(arr) {
+const addPhraseToDisplay = arr => {
     for (let i = 0; i < arr.length; i++) {
          //create list li item
-        let listItem = document.createElement('li');
+        let listItem = document.createElement("li");
         //put the character inside of the list item
         listItem.textContent = arr[i];
         //append list item to the #phrase ul
-        const ul = document.querySelector('#phrase ul');
+        const ul = document.querySelector("#phrase ul");
         //letter or space
         if (arr[i] !== " ") {
-            listItem.className = 'letter';
+            listItem.className = "letter";
         } else {
-            listItem.className = 'space';
+            listItem.className = "space";
         }
         ul.appendChild(listItem)
     }
@@ -51,15 +54,15 @@ const phraseArray = getRandomPhraseAsArray(phrases);
 addPhrasetoDisplay(phraseArray); 
 
 //Step 7 - Check Letter
-function checkLetter(button) {
+const checkLetter = button => {
      //store li elements in variable
-    const liElements = document.querySelectorAll('.letter');
+    const liElements = document.querySelectorAll(".letter");
     //store variable if match is found
     let match = null;
     //loop through li elements
     for (let i = 0; i < liElements.length; i++) {
         if(button === liElements[i].textContent) {
-            liElements[i].classList.add('show');
+            liElements[i].classList.add("show");
             match = button
         }
     }
@@ -68,21 +71,49 @@ function checkLetter(button) {
 }
 
 //Step 8 - Add Event Listener To Keyboard (Screen)
-qwerty.addEventListener('click', e => {
+qwerty.addEventListener("click", e => {
     if(e.target.tagName === "BUTTON"){ 
         //add "chosen" class
-        e.target.className = 'chosen';
+        e.target.className = "chosen";
         e.target.disabled = true;
         //call checkLetter function and store results
         const letterFound = checkLetter(e.target.textContent);
         //remove img and incrememnt "missed" counster
+        //Step 9 - Count The Missed Guesses In Game
         if (letterFound === null) {
-            let img = document.querySelector('#scoreboad img');
+            let img = document.querySelector("#scoreboad img");
             img.remove();
             missed++
         }
         checkWin();
     }
 });
+
+//Step 10 - Create a checkWin Function
+const checkWin = () => {
+    //variale to store the li elements class name "letter"
+    let letter = document.querySelectorAll(".letter");
+    //variable to store li elements class name "show"
+    let show = document.querySelectorAll(".show");
+    //if length of two variables are same
+    if (letter.length === show.length) {
+        //create win overlay
+        overlay.classList.add("win");
+        //change headline to show person won
+        title.textContent = "You Win!";
+        //change display property to "flex"
+        overlay.style.display = "flex";
+        reset();
+        } else if (missed > 4) {
+        //create lose overlay
+        overlay.classList.add("lose");
+        //change headline tos how person lost
+        title.textContent = "You Lose!";
+        //change display property to "flex"
+        overlay.style.display = "flex";
+        reset ();
+    }
+}
+
    
    
