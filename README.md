@@ -1,8 +1,6 @@
 # Game-Show-App
  Unit 06 Project
  
- Hi there!
-
 In this project, I have created a broswer version of "Wheel of Success". The purpose of this guessing game to click on the letters from an onscreen keyboard to try to guess a random phrase.
 
 I have used Javascript to create an array of phrases and have created functions to choose a random phrase from the array, split the phrase into letters, and put those letters onto the game board.
